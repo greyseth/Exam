@@ -11,13 +11,25 @@ class Planes extends CI_Controller {
         $data['title'] = 'Travelpedia - Our planes';
         $data['customCSS'] = array('planes.css');
 
+        $data['planeData'] = $this->plane_model->getAll();
+
         $this->load->view('prefab/header.php', $data);
         $this->load->view('planes/plane-list.php', $data);
         $this->load->view('prefab/footer.php', $data);
     }
 
     public function edit($editId) {
+        $data['title'] = 'Travelpedia - Our planes';
+        $data['customCSS'] = array('planes.css');
 
+        $data['ogData'] = $this->plane_model->get($editId);
+        if (!$data['ogData']) return redirect(base_url().'index.php');
+        //Temporary fallback solution
+        //TODO: Make a not found dislay
+
+        $this->load->view('prefab/header.php', $data);
+        $this->load->view('planes/plane-update-form.php', $data);
+        $this->load->view('prefab/footer.php', $data);
     }
 
     public function add() {        
@@ -36,16 +48,74 @@ class Planes extends CI_Controller {
         $this->load->view('prefab/footer.php', $data);
     }
 
-    public function auth_edit() {
+    public function auth_edit($editId) {
+        if ($this->input->post('editPlane')) {            
+            if (!empty($_FILES['planePicture']['name'])) {            
+                //File upload handler
+                $config['upload_path'] = 'uploads/'; 
+                $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
+                $config['max_size'] = '25000';
+                $config['file_name'] = $_FILES['planePicture']['name']; 
 
+                // Load upload library 
+                $this->load->library('upload', $config); 
+
+                if ($this->upload->do_upload('planePicture')) {
+                    $uploaded = $this->upload->data();                    
+                }else {
+                    $this->session->set_flashdata(array('msg' => "Image failed to upload", 'type' => 'fail'));
+                    redirect(base_url().'index.php/planes/edit/'.$editId);
+                }
+            } 
+
+            $inserted = $this->plane_model->update($editId);
+            if ($inserted) {
+                $this->session->set_flashdata(array('msg' => "Added new plane", 'type' => 'success'));
+                redirect(base_url().'index.php/planes');
+            }
+            else {
+                $this->session->set_flashdata(array('msg' => "An error has occurred", 'type' => 'fail'));
+                redirect(base_url().'index.php/planes/edit/'.$editId);
+            }
+        }else redirect(base_url().'index.php/planes/edit/'.$editId);
     }
 
     public function auth_add() {
+        if ($this->input->post('addPlane')) {            
+            if (!empty($_FILES['planePicture']['name'])) {            
+                //File upload handler
+                $config['upload_path'] = 'uploads/'; 
+                $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
+                $config['max_size'] = '25000';
+                $config['file_name'] = $_FILES['planePicture']['name']; 
 
+                // Load upload library 
+                $this->load->library('upload', $config); 
+
+                if ($this->upload->do_upload('planePicture')) {
+                    $uploaded = $this->upload->data();
+                    $inserted = $this->plane_model->insert();
+
+                    if ($inserted) {
+                        $this->session->set_flashdata(array('msg' => "Added new plane", 'type' => 'success'));
+                        redirect(base_url().'index.php/planes');
+                    }
+                    else {
+                        $this->session->set_flashdata(array('msg' => "An error has occurred", 'type' => 'fail'));
+                        redirect(base_url().'index.php/planes/add');
+                    }
+                }else {
+                    $this->session->set_flashdata(array('msg' => "Image failed to upload", 'type' => 'fail'));
+                    redirect(base_url().'index.php/planes/add');
+                }
+            } 
+        }else redirect(base_url().'index.php/planes/add');
     }
 
-    public function auth_delete() {
-
+    public function auth_delete($delId) {
+        $operation = $this->plane_model->delete($delId);
+        $this->session->set_flashdata(array('notif' => $operation['msg'], 'type' => $operation['status']));
+        redirect(base_url().'index.php/planes');
     }
 }
 

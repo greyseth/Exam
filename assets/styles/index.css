@@ -239,3 +239,17 @@ aside {
 }
 
 /* Notifications tab styling */
+
+/* #region FormGaps */
+
+form div.form-gap.small {
+	height: 4%;
+}
+form div.form-gap.medium {
+	height: 7%;
+}
+form div.form-gap.big {
+	height: 12%;
+}
+
+/* #endregion */

@@ -7,21 +7,32 @@
     </section>
     
     <section class="planes-body">
-        <div class="plane-card-container">
-            <div class="plane-card">
-                <img src="<?=base_url()?>assets/img/mike.jpg"/>
-                <div class="plane-card-details">
-                    <h3>Plane name</h3>
-                    <div>
-                        <p>Type: First Class</p>
-                        <p>Capacity: 41 persons</p>
+        <?php 
+        
+        if (isset($planeData)) {
+            foreach ($planeData as $plane) {
+                echo 
+                '<div class="plane-card-container">
+                    <div class="plane-card">
+                        <img src="'.base_url().'uploads/'.$plane->img.'"/>
+                        <div class="plane-card-details">
+                            <h3>'.$plane->name.'</h3>
+                            <div>
+                                <p>Type: '.$plane->type.'</p>
+                                <p>Capacity: '.$plane->capacity.' persons</p>
+                            </div>
+                            <!-- Admin controls -->
+                            <div class="plane-card-admin">
+                                <a class="hover pointer scale"
+                                    href="'.base_url().'index.php/planes/edit/'.$plane->plane_id.'"><button>Edit</button></a>
+                                <a class="hover pointer scale"
+                                    href="'.base_url().'index.php/planes/auth_delete/'.$plane->plane_id.'"><button>Delete</button></a>
+                            </div>
+                        </div>
                     </div>
-                    <!-- Admin controls -->
-                    <div class="plane-card-admin">
-                        <a class="hover pointer scale"><button>Edit</button></a>
-                        <a class="hover pointer scale"><button>Delete</button></a>
-                    </div>
-                </div>
-            </div>
-        </div>
+                </div>';
+            }
+        }
+
+        ?>
     </section>

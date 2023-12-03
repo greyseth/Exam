@@ -8,7 +8,7 @@ class plane_model extends CI_Model {
 
     public function get($id) {
         $this->db->where('plane_id', $id);
-        return $this->db->get('planes')->result();
+        return $this->db->get('planes')->result()[0];
     }
 
     public function getAll() {
@@ -23,23 +23,11 @@ class plane_model extends CI_Model {
         if ($this->input->post('typeInput'))
             $insertData['type'] = $this->input->post('typeInput');
         if ($this->input->post('capacityInput'))
-            $insertData['type'] = $this->input->post('capacityInput');
-        if (!empty($_FILES['planePicture']['name'])) {            
-            //File upload handler
-            $config['upload_path'] = 'uploads/'; 
-            $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
-            $config['max_size'] = '25000';
-            $config['file_name'] = $_FILES['planePicture']['name']; 
+            $insertData['capacity'] = $this->input->post('capacityInput');
+        if (!empty($_FILES['planePicture']['name']))
+            $insertData['img'] = $_FILES['planePicture']['name'];
 
-            // Load upload library 
-            $this->load->library('upload', $config); 
-
-            if ($this->upload->do_upload('planePicture')) {
-                $insertData['img'] = $_FILES['planePicture']['name'];
-            }else return array('msg' => 'An error occurred during file upload', 'type' => 'fail');
-        }            
-
-        $this->db->insert('users', $insertData);
+        $this->db->insert('planes', $insertData);
         return ($this->db->affected_rows() != 1) ? 
         array("msg" => 'Unexpected error occurred', 'status' => "fail") : 
         array("msg" => "Added new plane '".$insertData['name']."'", 'status' => 'success');
@@ -53,21 +41,9 @@ class plane_model extends CI_Model {
         if ($this->input->post('typeInput'))
             $updateData['type'] = $this->input->post('typeInput');
         if ($this->input->post('capacityInput'))
-            $updateData['type'] = $this->input->post('capacityInput');
-        if (!empty($_FILES['planePicture']['name'])) {            
-            //File upload handler
-            $config['upload_path'] = 'uploads/'; 
-            $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
-            $config['max_size'] = '25000';
-            $config['file_name'] = $_FILES['planePicture']['name']; 
-
-            // Load upload library 
-            $this->load->library('upload', $config); 
-
-            if ($this->upload->do_upload('planePicture')) {
-                $updateData['img'] = $_FILES['planePicture']['name'];
-            }else return array('msg' => 'An error occurred during file upload', 'type' => 'fail');
-        }            
+            $updateData['capacity'] = $this->input->post('capacityInput');
+        if (!empty($_FILES['planePicture']['name'])) 
+            $updateData['img'] = $_FILES['planePicture']['name'];
 
         $this->db->where('plane_id', $id);
         $this->db->update('planes', $updateData);

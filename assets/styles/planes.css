@@ -98,3 +98,36 @@
 img {
 	width: 100%;
 }
+
+/* Add form */
+form {
+	width: 100%;
+	padding: 2% 25%;
+	margin-top: var(--header-height);
+
+	color: var(--primary-color);
+}
+
+form h1 {
+	width: 100%;
+	text-align: center;
+	margin-bottom: 3%;
+}
+
+form input,
+form select {
+	width: 100%;
+	padding: 2% 4%;
+
+	background-color: var(--primary-color);
+	border: 2px solid var(--secondary-color);
+	border-radius: 15px;
+	color: white;
+
+	margin-bottom: 3%;
+}
+
+form input:focus,
+form select:focus {
+	outline: none;
+}
