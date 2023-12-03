@@ -16,6 +16,10 @@ const navItems = [
 		location: "routes",
 	},
 	{
+		label: "Book a Flight",
+		location: "book",
+	},
+	{
 		label: "Orders",
 		location: "orders",
 	},

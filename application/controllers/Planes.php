@@ -13,17 +13,27 @@ class Planes extends CI_Controller {
 
         $data['planeData'] = $this->plane_model->getAll();
 
+        $loginData = $this->user_model->get($this->session->userdata('login_id'));
+        $data['showAdd'] = (($loginData->level === '1') ? true : false);
+
         $this->load->view('prefab/header.php', $data);
         $this->load->view('planes/plane-list.php', $data);
         $this->load->view('prefab/footer.php', $data);
     }
 
     public function edit($editId) {
+        if ($this->session->userdata('login_id')) {
+            $loginId = $this->session->userdata('login_id');
+            $userCheck = $this->user_model->get($loginId);
+
+            if ($userCheck->level !== '1') return redirect(base_url().'index.php/planes');
+        }else return redirect(base_url().'index.php/planes');
+        
         $data['title'] = 'Travelpedia - Our planes';
         $data['customCSS'] = array('planes.css');
 
         $data['ogData'] = $this->plane_model->get($editId);
-        if (!$data['ogData']) return redirect(base_url().'index.php');
+        if (!$data['ogData']) return redirect(base_url().'index.php/planes');
         //Temporary fallback solution
         //TODO: Make a not found dislay
 

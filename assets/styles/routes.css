@@ -1,0 +1,85 @@
+.routes-body {
+	width: 100%;
+	padding: 0px 5%;
+}
+
+.route-card {
+	width: 100%;
+	height: 200px;
+	padding: 2%;
+	margin-bottom: 3%;
+
+	background-color: var(--secondary-color);
+	color: white;
+
+	border-right: 20px solid var(--primary-color);
+	border-left: 20px solid var(--primary-color);
+	border-radius: 25px;
+
+	display: grid;
+	grid-template-columns: 15% 1fr 15%;
+}
+
+.route-card-location {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 15px;
+}
+
+.route-card-location p:first-child {
+	font-size: 2rem;
+}
+
+.route-card-details {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 25px;
+	position: relative;
+}
+
+.route-card-details > div {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 25px;
+}
+
+.route-card-details button {
+	padding: 2% 10%;
+	background-color: var(--primary-color);
+	color: white;
+	border: 2px solid white;
+	border-radius: 5px;
+	font-size: 1rem;
+}
+
+.route-card-visual {
+	width: 100%;
+	height: 10%;
+
+	background-color: white;
+	border-radius: 25px;
+}
+
+.route-card-details img {
+	aspect-ratio: 1/1;
+	height: 55%;
+	width: auto;
+	position: absolute;
+	left: 0%;
+	transform: rotate(90deg);
+	transition: 0.5s;
+}
+
+.route-card-details img:hover {
+	transform: rotate(90deg) scale(110%);
+}
+
+.route-card:hover img {
+	left: 90%;
+}

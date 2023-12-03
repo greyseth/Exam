@@ -56,7 +56,7 @@ class plane_model extends CI_Model {
         $this->db->delete('planes', array('plane_id' => $id));
         return $this->db->affected_rows() !== 1 ? 
         array('msg' => 'An error occurred during deletion', 'status' => 'fail') : 
-        array('msg' => 'Deleted user '.$id, 'status' => 'success');
+        array('msg' => 'Deleted plane '.$id, 'status' => 'success');
     }
 
 }
