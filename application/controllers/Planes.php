@@ -10,7 +10,6 @@ class Planes extends CI_Controller {
     public function index() {
         $data['title'] = 'Travelpedia - Our planes';
         $data['customCSS'] = array('planes.css');
-        $data['customJS'] = array('planes.js');
 
         $this->load->view('prefab/header.php', $data);
         $this->load->view('planes/plane-list.php', $data);
@@ -21,12 +20,7 @@ class Planes extends CI_Controller {
 
     }
 
-    public function add() {
-        // $loginId = $this->session->userdata('login_id');
-        //     $userCheck = $this->user_model->get($loginId);
-        //     var_dump($userCheck->level);
-        //     return;
-        
+    public function add() {        
         if ($this->session->userdata('login_id')) {
             $loginId = $this->session->userdata('login_id');
             $userCheck = $this->user_model->get($loginId);
@@ -36,7 +30,6 @@ class Planes extends CI_Controller {
         
         $data['title'] = 'Travelpedia - New Plane';
         $data['customCSS'] = array('planes.css');
-        $data['customJS'] = array('planes.js');
 
         $this->load->view('prefab/header.php', $data);
         $this->load->view('planes/plane-form.php', $data);
