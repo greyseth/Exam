@@ -26,8 +26,13 @@
                 <img src="<?=base_url()?>assets/img/icons/notif.svg" class="svg-white" />
                 <!-- <p>!</p> -->
             </button>
-            <a href="<?php echo base_url() ?>index.php/auth/login">
-                <button class="login-btn hover pointer invert-secondary">Log in</button>
-            </a>
+            <?php if(!$this->session->userdata('login_id')) : ?>
+                <a href="<?php echo base_url() ?>index.php/auth/login">
+                    <button class="login-btn hover pointer invert-secondary">Log in</button>
+                </a>
+            <?php endif ?>
+            <!-- Replace login button with account link if session exists -->
         </div>
     </header>
+
+    <!-- TODO: Add flashdata notif display -->
