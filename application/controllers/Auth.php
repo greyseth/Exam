@@ -5,6 +5,10 @@ class Auth extends CI_Controller {
         parent::__construct();
         $this->load->model('user_model');
     }
+
+    public function index() {
+        redirect(base_url().'index.php/auth/login');
+    }
     
     //Login page view
     public function login() {
@@ -49,7 +53,7 @@ class Auth extends CI_Controller {
     public function auth_signup() {
         if ($this->input->post('signup')) {
             //Performs signup actions
-            $signupResult = $this->user_model->insert();
+            $signupResult = $this->user_model->signup();        
 
             $this->session->set_flashdata(array('notif' => $signupResult['msg'], 'type' => $signupResult['status']));
             if ($signupResult['status'] === 'fail') redirect(base_url().'index.php/auth/signup');

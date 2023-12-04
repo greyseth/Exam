@@ -15,7 +15,7 @@ class user_model extends CI_Model {
         return $this->db->get('users')->result();
     }
 
-    public function insert() {
+    public function signup() {
         $insertData = [];
         if ($this->input->post('usernameInput'))
             $insertData['username'] = $this->input->post('usernameInput');
@@ -35,10 +35,21 @@ class user_model extends CI_Model {
             $insertData['password'] = $this->input->post('passwordInput');
         }
 
-        $this->db->insert('users', $insertData);
-        return ($this->db->affected_rows() != 1) ? 
-        array("msg" => 'Unexpected error occurred', 'status' => "fail") : 
-        array("msg" => "Created new user '".$insertData['username']."'", 'status' => 'success');
+        $db_debug = $this->db->db_debug;
+        $this->db->db_debug = false;
+
+        $this->db->insert('users', $insertData);        
+
+        if ($this->db->error()) return array('msg' => 'Email already exists', 'status' => 'fail');
+
+        $this->db->db_debug = $db_debug;
+
+        if ($this->db->affected_rows() != 1) {
+            return array("msg" => 'Unexpected error occurred', 'status' => "fail");            
+        }else {
+            $this->session->set_userdata(array('login_id' => $this->db->insert_id(), 'login_level' => '0'));
+            array("msg" => "Welcome, ".$insertData['username'], 'status' => 'success');
+        }
     }
 
     public function login() {
@@ -47,7 +58,7 @@ class user_model extends CI_Model {
 
         $targetUser = $this->db->get_where('users', array('email' => $email, 'password' => $password))->result()[0];
         if ($targetUser) {
-            $this->session->set_userdata('login_id', $targetUser->user_id);
+            $this->session->set_userdata(array('login_id' => $targetUser->user_id, 'login_level' => $targetUser->level));
             return array('msg' => 'Logged in as '.$targetUser->username, 'status' => "success");
         }else return array('msg' => 'Invalid credentials', 'status' => "fail");
     }

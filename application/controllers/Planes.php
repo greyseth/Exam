@@ -73,18 +73,18 @@ class Planes extends CI_Controller {
                 if ($this->upload->do_upload('planePicture')) {
                     $uploaded = $this->upload->data();                    
                 }else {
-                    $this->session->set_flashdata(array('msg' => "Image failed to upload", 'type' => 'fail'));
+                    $this->session->set_flashdata(array('notif' => "Image failed to upload", 'type' => 'fail'));
                     redirect(base_url().'index.php/planes/edit/'.$editId);
                 }
             } 
 
             $inserted = $this->plane_model->update($editId);
             if ($inserted) {
-                $this->session->set_flashdata(array('msg' => "Added new plane", 'type' => 'success'));
+                $this->session->set_flashdata(array('notif' => "Updated plane data", 'type' => 'success'));
                 redirect(base_url().'index.php/planes');
             }
             else {
-                $this->session->set_flashdata(array('msg' => "An error has occurred", 'type' => 'fail'));
+                $this->session->set_flashdata(array('notif' => "An error has occurred", 'type' => 'fail'));
                 redirect(base_url().'index.php/planes/edit/'.$editId);
             }
         }else redirect(base_url().'index.php/planes/edit/'.$editId);
@@ -107,15 +107,15 @@ class Planes extends CI_Controller {
                     $inserted = $this->plane_model->insert();
 
                     if ($inserted) {
-                        $this->session->set_flashdata(array('msg' => "Added new plane", 'type' => 'success'));
+                        $this->session->set_flashdata(array('notif' => "Added new plane", 'type' => 'success'));
                         redirect(base_url().'index.php/planes');
                     }
                     else {
-                        $this->session->set_flashdata(array('msg' => "An error has occurred", 'type' => 'fail'));
+                        $this->session->set_flashdata(array('notif' => "An error has occurred", 'type' => 'fail'));
                         redirect(base_url().'index.php/planes/add');
                     }
                 }else {
-                    $this->session->set_flashdata(array('msg' => "Image failed to upload", 'type' => 'fail'));
+                    $this->session->set_flashdata(array('notif' => "Image failed to upload", 'type' => 'fail'));
                     redirect(base_url().'index.php/planes/add');
                 }
             } 

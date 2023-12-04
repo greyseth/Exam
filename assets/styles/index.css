@@ -92,6 +92,16 @@ header div {
 	padding: 0px 1%;
 }
 
+header .acc-link {
+	height: 60%;
+	width: auto;
+	aspect-ratio: 1/1;
+}
+
+.acc-link img {
+	width: 100%;
+}
+
 .menu-btn {
 	aspect-ratio: 1/1;
 	height: var(--header-height);
@@ -239,6 +249,70 @@ aside {
 }
 
 /* Notifications tab styling */
+.notif {
+	position: fixed;
+	top: 0px;
+	left: 2vw;
+
+	padding: 2% 3%;
+
+	background-color: rgba(7, 102, 173, 0.75);
+	color: white;
+	border: 2px var(--primary-color) solid;
+	border-radius: 5px;
+
+	opacity: 0;
+	animation: notif-in 1 1s forwards normal;
+}
+
+.notif-error {
+	background-color: rgba(255, 0, 0, 0.75);
+	border: 2px red solid;
+}
+
+.notif-header {
+	min-width: 200px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.notif h2 {
+	font-size: 1.5rem;
+}
+
+.notif a {
+	text-decoration: underline;
+	font-size: 0.85rem;
+}
+
+.notif-out {
+	animation: notif-out 1s 1 forwards normal;
+}
+
+@keyframes notif-in {
+	from {
+		top: 0px;
+		opacity: 0;
+	}
+	to {
+		top: calc(2vh + var(--header-height));
+		opacity: 1;
+	}
+}
+
+@keyframes notif-out {
+	from {
+		top: calc(2vh + var(--header-height));
+		left: 2vw;
+		opacity: 1;
+	}
+	to {
+		top: calc(2vh + var(--header-height));
+		left: -5vw;
+		opacity: 0;
+	}
+}
 
 /* #region FormGaps */
 

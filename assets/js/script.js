@@ -79,3 +79,13 @@ function closeSidebar() {
 		document.querySelector("aside").remove();
 	}, animTime);
 }
+
+//Notification close functionality
+function closeNotif() {
+	const notifAnimTime = 1000;
+	const el = document.querySelector(".notif");
+	el.classList.add("notif-out");
+	setTimeout(() => {
+		el.remove();
+	}, notifAnimTime);
+}

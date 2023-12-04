@@ -30,9 +30,25 @@
                 <a href="<?php echo base_url() ?>index.php/auth/login">
                     <button class="login-btn hover pointer invert-secondary">Log in</button>
                 </a>
+            <?php endif ?>            
+            <?php if ($this->session->userdata('login_id')) : ?>
+                <a href="<?=base_url()?>index.php/account" class="acc-link">
+                    <img 
+                        src="<?=base_url()?>assets/img/icons/<?=(($this->session->userdata('login_level')==='1')?'admin.svg':'account.svg')?>" 
+                        class="svg-white hover pointer scale"/>
+                </a>
             <?php endif ?>
-            <!-- Replace login button with account link if session exists -->
         </div>
     </header>
 
-    <!-- TODO: Add flashdata notif display -->
+    <?php if ($this->session->flashdata('notif')) : ?>
+        <div class="notif <?=(($this->session->flashdata('type')==='fail')?'notif-error':'')?>">
+            <div class="notif-header">
+                <h2><?=strtoupper($this->session->flashdata('type'))?></h2>
+                <a class="hover pointer" onclick="closeNotif()">Close</a>
+            </div>
+            <div class="notif-body">
+                <?=$this->session->flashdata('notif')?>
+            </div>
+        </div>
+    <?php endif ?>

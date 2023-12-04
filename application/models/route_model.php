@@ -26,7 +26,7 @@ class route_model extends CI_Model {
         $this->db->from('routes');
         $this->db->join('planes', 'planes.plane_id = routes.plane_id', 'left');
         return $this->db->get()->result();
-    }
+    }    
 
     public function insert() {
         $insertData = [];

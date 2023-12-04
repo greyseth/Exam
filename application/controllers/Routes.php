@@ -66,11 +66,11 @@ class Routes extends CI_Controller {
     public function auth_add() {
         $inserted = $this->route_model->insert();
         if ($inserted) {
-            $this->session->set_flashdata(array('msg' => "Added new route", 'type' => 'success'));
+            $this->session->set_flashdata(array('notif' => "Added new route", 'type' => 'success'));
             redirect(base_url().'index.php/routes');
         }
         else {
-            $this->session->set_flashdata(array('msg' => "An error has occurred", 'type' => 'fail'));
+            $this->session->set_flashdata(array('notif' => "An error has occurred", 'type' => 'fail'));
             redirect(base_url().'index.php/routes/add');
         }
     }
@@ -78,11 +78,11 @@ class Routes extends CI_Controller {
     public function auth_edit($editId) {
         $updated = $this->route_model->update($editId);
         if ($updated) {
-            $this->session->set_flashdata(array('msg' => "Updated route", 'type' => 'success'));
+            $this->session->set_flashdata(array('notif' => "Updated route", 'type' => 'success'));
             redirect(base_url().'index.php/routes');
         }
         else {
-            $this->session->set_flashdata(array('msg' => "An error has occurred", 'type' => 'fail'));
+            $this->session->set_flashdata(array('notif' => "An error has occurred", 'type' => 'fail'));
             redirect(base_url().'index.php/routes/add');
         }
     }
