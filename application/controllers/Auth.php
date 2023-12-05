@@ -61,6 +61,11 @@ class Auth extends CI_Controller {
 
         }else redirect(base_url().'index.php/auth/signup');
     }
+
+    public function logout() {
+        $this->session->sess_destroy();
+        redirect(base_url().'index.php/auth/login');
+    }
 }
 
 ?>

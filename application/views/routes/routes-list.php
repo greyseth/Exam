@@ -1,7 +1,7 @@
     <section class="planes-header">
         <h1>WHERE WE DROPPING?</h1>
         <p>View our ongoing and available routes</p>
-        <?php if ($showAdd) : ?>
+        <?php if (isset($showAdd)) : ?>
             <a href="<?=base_url()?>index.php/routes/add">
                 <button class="hover pointer scale invert">Add New Route</button>
             </a>
@@ -14,7 +14,7 @@
         if (isset($routes)) {
             foreach ($routes as $route) {
                 echo '
-                    <div class="route-card">
+                    <div class="route-card '.(($route->available==='unavailable')?'card-red':'').'">
                         <div class="route-card-location">
                             <p>FROM</p>
                             <p>'.$route->origin.'</p>
@@ -29,7 +29,7 @@
                                 <p>'.$route->type.'</p> <p>|</p> <p>'.$route->capacity.' persons</p>
                             </div>
                             '.
-                                ($showAdd?
+                                (isset($showAdd)?
                                 '<div>
                                     <a href="'.base_url().'index.php/routes/edit/'.$route->route_id.'">
                                         <button class="hover pointer scale">Edit</button>

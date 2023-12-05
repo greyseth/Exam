@@ -41,6 +41,8 @@ function pickClass(c) {
 		newSelect.classList.remove("hover", "pointer", "scale");
 
 		document.querySelector("#classInput").value = c;
+
+		calculateSeats();
 	}
 }
 
@@ -63,7 +65,26 @@ function calculateSeats() {
 	);
 
 	const cSeats = Math.floor(cSeatValue / 2);
+	const totalSeats = aSeats + cSeats;
 
-	orderedDisplay.textContent = aSeats + cSeats;
-	document.querySelector("#seatCountInput").value = aSeats + cSeats;
+	const fClass = document.querySelector("#classInput").value;
+	let totalPrice = 0;
+	switch (fClass) {
+		case "first":
+			totalPrice = 250 * totalSeats;
+			break;
+		case "business":
+			totalPrice = 100 * totalSeats;
+			break;
+		case "first":
+			totalPrice = 50 * totalSeats;
+			break;
+		default:
+			totalPrice = "Class not selected";
+			break;
+	}
+
+	orderedDisplay.textContent = totalSeats;
+	document.querySelector("#seatCountInput").value = totalSeats;
+	document.querySelector("#totalPrice").textContent = "$" + totalPrice;
 }

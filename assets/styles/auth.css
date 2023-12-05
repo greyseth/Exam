@@ -7,6 +7,15 @@
 	grid-template-columns: 1fr 40%;
 }
 
+.login-body > div:not(.no-img) {
+	background-image: url("../img/login_stock.jpg");
+	background-size: cover;
+}
+
+.login-body > div.signup-stock:not(.no-img) {
+	background-image: url("../img/signup_stock.jpg");
+}
+
 form {
 	background-color: var(--primary-color);
 	color: white;
@@ -14,6 +23,8 @@ form {
 	padding: 2% 5%;
 
 	overflow-y: scroll;
+
+	box-shadow: -10px 0px 25px black;
 }
 
 form h2 {
@@ -21,7 +32,8 @@ form h2 {
 	text-transform: uppercase;
 }
 
-form > input {
+form > input,
+form > select {
 	width: 100%;
 	padding: 2% 3%;
 	background-color: var(--secondary-color);

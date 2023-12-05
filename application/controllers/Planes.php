@@ -3,6 +3,7 @@
 class Planes extends CI_Controller {
     function __construct() {
         parent::__construct();
+        $this->load->model('notifs');
         $this->load->model('user_model');
         $this->load->model('plane_model');
     }
@@ -13,8 +14,10 @@ class Planes extends CI_Controller {
 
         $data['planeData'] = $this->plane_model->getAll();
 
-        $loginData = $this->user_model->get($this->session->userdata('login_id'));
-        $data['showAdd'] = (($loginData->level === '1') ? true : false);
+        if ($this->session->userdata('login_id')) {
+            $loginData = $this->user_model->get($this->session->userdata('login_id'));
+            $data['showAdd'] = (($loginData->level === '1') ? true : false);
+        }        
 
         $this->load->view('prefab/header.php', $data);
         $this->load->view('planes/plane-list.php', $data);
@@ -51,7 +54,7 @@ class Planes extends CI_Controller {
         }else return redirect(base_url().'index.php/planes');
         
         $data['title'] = 'Travelpedia - New Plane';
-        $data['customCSS'] = array('planes.css');
+        $data['customCSS'] = array('planes.css');        
 
         $this->load->view('prefab/header.php', $data);
         $this->load->view('planes/plane-form.php', $data);
@@ -80,6 +83,8 @@ class Planes extends CI_Controller {
 
             $inserted = $this->plane_model->update($editId);
             if ($inserted) {
+                $this->notifs->send('Plane Updated', 'Plane with id '.$editId.' has been modified');
+
                 $this->session->set_flashdata(array('notif' => "Updated plane data", 'type' => 'success'));
                 redirect(base_url().'index.php/planes');
             }
@@ -107,6 +112,8 @@ class Planes extends CI_Controller {
                     $inserted = $this->plane_model->insert();
 
                     if ($inserted) {
+                        $this->notifs->send('Plane added', 'New plane data has been added');
+                        
                         $this->session->set_flashdata(array('notif' => "Added new plane", 'type' => 'success'));
                         redirect(base_url().'index.php/planes');
                     }
@@ -125,6 +132,9 @@ class Planes extends CI_Controller {
     public function auth_delete($delId) {
         $operation = $this->plane_model->delete($delId);
         $this->session->set_flashdata(array('notif' => $operation['msg'], 'type' => $operation['status']));
+
+        $this->notifs->send('Plane deleted', 'Plane '.$delId.' has been deleted');
+        
         redirect(base_url().'index.php/planes');
     }
 }

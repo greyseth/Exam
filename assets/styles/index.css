@@ -201,6 +201,10 @@ aside {
 	padding: 0px 5%;
 }
 
+.notif-container ul.aside-list {
+	list-style: none;
+}
+
 .aside-list li {
 	margin-bottom: 2%;
 }
@@ -253,6 +257,7 @@ aside {
 	position: fixed;
 	top: 0px;
 	left: 2vw;
+	z-index: 9;
 
 	padding: 2% 3%;
 
@@ -310,6 +315,81 @@ aside {
 	to {
 		top: calc(2vh + var(--header-height));
 		left: -5vw;
+		opacity: 0;
+	}
+}
+
+.notif-item {
+	border: 1px solid var(--secondary-color);
+	padding: 2%;
+}
+
+.notif-item div:not(.notif-item-separator) {
+	display: flex;
+	justify-content: space-between;
+}
+
+.notif-item div.notif-item-separator {
+	background-color: var(--secondary-color);
+	margin: 3% 0px;
+	height: 2px;
+}
+
+.notif-item p:first-child {
+	font-size: 1.5rem;
+}
+
+/* Account Menu Overlay */
+.account-overlay {
+	position: fixed;
+	top: calc(2% + var(--header-height));
+	right: 2%;
+
+	padding: 1% 2%;
+
+	background-color: var(--secondary-color);
+	color: white;
+	border-radius: 5px;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	gap: 15px;
+
+	animation: account-in 0.75s 1 forwards normal;
+}
+
+.account-overlay .overlay-separator {
+	height: 2px;
+	background-color: var(--primary-color);
+}
+
+.account-overlay a {
+	text-align: center;
+}
+
+.account-overlay-out {
+	animation: account-out 0.75s 1 forwards normal;
+}
+
+@keyframes account-in {
+	from {
+		transform: translateY(-100%);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0%);
+		opacity: 1;
+	}
+}
+
+@keyframes account-out {
+	from {
+		transform: translateY(0%);
+		opacity: 1;
+	}
+	to {
+		transform: translateY(-100%);
 		opacity: 0;
 	}
 }

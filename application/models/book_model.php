@@ -25,6 +25,22 @@ class book_model extends CI_Model {
         return $this->db->get()->result();
     }
 
+    public function getFiltered($name, $origin, $destination, $plane) {
+        $this->db->select('books.*, users.name AS bookername, users.email, routes.*, planes.*');
+        $this->db->from('books');
+        $this->db->join('users', 'users.user_id = books.user_id', 'left');
+        $this->db->join('routes', 'routes.route_id = books.route_id', 'left');
+        $this->db->join('planes', 'planes.plane_id = routes.plane_id', 'left');
+
+        //Filters
+        if ($name !== 'all') $this->db->or_like('users.name', $name);
+        if ($origin !== 'all') $this->db->or_like('routes.origin', $origin);
+        if ($destination !== 'all') $this->db->or_like('routes.destination', $destination);
+        if ($plane !== 'all') $this->db->or_like('planes.name', $plane);
+
+        return $this->db->get()->result();
+    }
+
     public function getUser($userId) {
         $this->db->select('books.*, users.name AS bookername, users.email, routes.*, planes.*');
         $this->db->from('books');
@@ -32,6 +48,22 @@ class book_model extends CI_Model {
         $this->db->join('routes', 'routes.route_id = books.route_id', 'left');
         $this->db->join('planes', 'planes.plane_id = routes.plane_id', 'left');
         $this->db->where('books.user_id', $userId);
+        return $this->db->get()->result();
+    }
+
+    public function getUserFiltered($userId, $origin, $destination, $plane) {
+        $this->db->select('books.*, users.name AS bookername, users.email, routes.*, planes.*');
+        $this->db->from('books');
+        $this->db->join('users', 'users.user_id = books.user_id', 'left');
+        $this->db->join('routes', 'routes.route_id = books.route_id', 'left');
+        $this->db->join('planes', 'planes.plane_id = routes.plane_id', 'left');
+        $this->db->where('books.user_id', $userId);
+
+        //Filters
+        if ($origin !== 'all') $this->db->like('routes.origin', $origin);
+        if ($destination !== 'all') $this->db->or_like('routes.destination', $destination);
+        if ($plane !== 'all') $this->db->or_like('planes.name', $plane);
+
         return $this->db->get()->result();
     }
     
@@ -49,18 +81,21 @@ class book_model extends CI_Model {
         $insertData = [];     
         $insertData['user_id'] = $this->session->userdata('login_id');
         $insertData['booking_date'] = date('Y/m/d');
-        if ($this->input->post('routeInput')) 
-            $insertData['route_id'] = $this->input->post('routeInput');
-        if ($this->input->post('departDateInput'))
-            $insertData['depart_date'] = $this->input->post('departDateInput');
-        if ($this->input->post('seatCountInput') && $this->input->post('classInput')) {
-            $insertData['seat_count'] = $this->input->post('seatCountInput');
-            $insertData['flight_class'] = $this->input->post('classInput');
-            $insertData['seat_price'] = 
-            (($this->input->post('classInput')==='first class')?$insertData['seat_count']*250:
-            (($this->input->post('classInput')==='business')?$insertData['seat_count']*100:
-            $insertData['seat_count']*50));
-        }        
+        
+        if (!$this->input->post('routeInput') ||
+            !$this->input->post('seatCountInput') ||
+            !$this->input->post('classInput') ||
+            !$this->input->post('departDateInput'))
+        return array('msg' => 'Incomplete booking details', 'status' => 'fail');
+
+        $insertData['route_id'] = $this->input->post('routeInput');
+        $insertData['depart_date'] = $this->input->post('departDateInput');
+        $insertData['seat_count'] = $this->input->post('seatCountInput');
+        $insertData['flight_class'] = $this->input->post('classInput');
+        $insertData['seat_price'] = 
+        (($this->input->post('classInput')==='first class')?$insertData['seat_count']*250:
+        (($this->input->post('classInput')==='business')?$insertData['seat_count']*100:
+        $insertData['seat_count']*50));
 
         $this->db->insert('books', $insertData);
         return ($this->db->affected_rows() != 1) ? 

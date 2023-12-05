@@ -96,6 +96,7 @@
                             </div>
                             <div class="seats-details">
                                 <p>Total ordered seats: <span id="orderedSeats">0</span></p>
+                                <p>Total Price: <span id="totalPrice">$0</span></p>
 
                             </div>
                             <div class="seats-next">

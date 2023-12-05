@@ -1,7 +1,7 @@
     <section class="planes-header">
         <h1>OUR PRIZED AND GLORIOUS PLANES</h1>
         <p>View our collection of top tier planes, that give you the best service</p>
-        <?php if ($showAdd) : ?>
+        <?php if (isset($showAdd)) : ?>
             <a href="<?=base_url()?>index.php/planes/add">
                 <button class="hover pointer scale invert">Add Plane Data</button>
             </a>
@@ -24,7 +24,7 @@
                                 <p>Capacity: '.$plane->capacity.' persons</p>
                             </div>
                             '.
-                            ($showAdd?
+                            (isset($showAdd)?
                                 '<div class="plane-card-admin">
                                     <a class="hover pointer scale"
                                         href="'.base_url().'index.php/planes/edit/'.$plane->plane_id.'"><button>Edit</button></a>

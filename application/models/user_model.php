@@ -8,7 +8,9 @@ class user_model extends CI_Model {
 
     public function get($id) {
         $this->db->where('user_id', $id);
-        return $this->db->get('users')->result()[0];
+        $result =  $this->db->get('users')->result();
+        if ($result) return $result[0];
+        else return false;
     }
 
     public function getAll() {
@@ -35,14 +37,16 @@ class user_model extends CI_Model {
             $insertData['password'] = $this->input->post('passwordInput');
         }
 
-        $db_debug = $this->db->db_debug;
-        $this->db->db_debug = false;
+        $insertData['level'] = 0;
+
+        // $db_debug = $this->db->db_debug;
+        // $this->db->db_debug = false;
 
         $this->db->insert('users', $insertData);        
 
-        if ($this->db->error()) return array('msg' => 'Email already exists', 'status' => 'fail');
+        // if ($this->db->error()) return array('msg' => 'Email already exists', 'status' => 'fail');
 
-        $this->db->db_debug = $db_debug;
+        // $this->db->db_debug = $db_debug;
 
         if ($this->db->affected_rows() != 1) {
             return array("msg" => 'Unexpected error occurred', 'status' => "fail");            

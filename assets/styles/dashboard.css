@@ -1,0 +1,139 @@
+.dashboard {
+	width: 100%;
+	height: calc(100vh - var(--header-height));
+	color: var(--primary-color);
+	margin-top: var(--header-height);
+	padding: 2% 5%;
+}
+
+.dash-title {
+	font-size: 2rem;
+	margin-bottom: 3%;
+}
+
+.not-logged {
+	width: 100%;
+	padding: 4%;
+
+	border: 2px dashed var(--primary-color);
+	border-radius: 25px;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+	gap: 25px;
+
+	margin-bottom: 3%;
+}
+
+.not-logged h2 {
+	width: 100%;
+	text-align: center;
+	font-size: 1.5rem;
+}
+
+.not-logged a {
+	padding: 1% 2%;
+	text-decoration: none;
+	background-color: var(--primary-color);
+	color: white;
+	border: 2px solid var(--secondary-color);
+	border-radius: 10px;
+}
+
+.dashboard .quick-nav {
+	width: 100%;
+	height: 250px;
+
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+
+	margin-bottom: 3%;
+}
+
+.quick-nav .nav-button {
+	aspect-ratio: 1/1;
+	width: 12%;
+	height: auto;
+	position: relative;
+}
+
+.nav-button * {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	transition: 0.5s;
+}
+
+.nav-button *:not(p) {
+	width: 100%;
+	height: 100%;
+}
+
+.nav-button img {
+	width: 80%;
+	height: 80%;
+}
+
+.nav-button p {
+	width: 100%;
+	height: 100%;
+}
+
+.nav-button p {
+	text-align: center;
+	color: white;
+}
+
+.nav-button .nav-bg {
+	background-color: var(--secondary-color);
+	border-radius: 50%;
+}
+
+.nav-bg.layer-2 {
+	background-color: var(--primary-color);
+	width: 100%;
+	height: 100%;
+}
+
+.nav-button:hover > .nav-bg.layer-2 {
+	width: 80%;
+	height: 80%;
+}
+
+.nav-button:hover > img {
+	width: 60%;
+	height: 60%;
+}
+
+.nav-button:hover > p {
+	transform: translate(-50%, 50%);
+	color: var(--primary-color);
+}
+
+.dashboard table {
+	width: 100%;
+	margin-bottom: 3%;
+}
+
+.dashboard .table-filter {
+	width: 100%;
+	padding: 2%;
+
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.table-filter input {
+	background-color: var(--primary-color);
+	color: white;
+	border: 2px solid var(--secondary-color);
+	border-radius: 15px;
+
+	padding: 1% 2%;
+	font-size: 1rem;
+}

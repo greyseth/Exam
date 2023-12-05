@@ -1,5 +1,5 @@
     <section class="login-body">
-        <img/>
+        <div></div>
         <form method="post" action="<?=base_url();?>index.php/auth/auth_login">
             <h2>Log In</h2>
             <p>We're glad to have you back with us</p>

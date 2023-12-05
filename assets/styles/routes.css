@@ -20,6 +20,10 @@
 	grid-template-columns: 15% 1fr 15%;
 }
 
+.route-card.card-red {
+	background-color: red;
+}
+
 .route-card-location {
 	display: flex;
 	flex-direction: column;

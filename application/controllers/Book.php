@@ -3,6 +3,7 @@
 class Book extends CI_Controller {
     function __construct() {
         parent::__construct();
+        $this->load->model('notifs');
         $this->load->model('book_model');
         $this->load->model('route_model');
     }
@@ -27,12 +28,12 @@ class Book extends CI_Controller {
         if ($this->input->post('newbook') && $this->session->userdata('login_id')) {
             $booked = $this->book_model->book();
             if ($booked['status'] === 'success') {
+                $this->notifs->send('Order Booked', 'A new order has been booked');
                 $this->load->view('peypel.php');
             }else {
                 $this->session->set_flashdata(array('notif' => $booked['msg'], 'type' => $booked['status']));
                 return redirect(base_url().'index.php/book');
             }
-            // $this->load->view('peypel.php');
         }else return redirect(base_url().'index.php');            
     }
 

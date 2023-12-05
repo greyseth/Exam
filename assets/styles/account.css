@@ -1,0 +1,44 @@
+.login-body {
+	grid-template-columns: 1fr 1fr;
+}
+
+.login-body > div {
+	background-color: white;
+}
+
+.login-body div:first-child {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.login-body div:first-child a {
+	padding: 2% 3%;
+	background-color: var(--primary-color);
+	color: white;
+	border: 2px solid var(--secondary-color);
+	border-radius: 10px;
+	text-decoration: none;
+}
+
+.login-body img {
+	width: 50%;
+}
+
+.admin-account {
+	width: 100%;
+	height: calc(100vh - var(--header-height));
+	color: var(--primary-color);
+	margin-top: var(--header-height);
+	padding: 2% 5%;
+}
+
+.admin-account h2 {
+	font-size: 2rem;
+	margin-bottom: 3%;
+}
+
+.admin-account table {
+	width: 100%;
+}

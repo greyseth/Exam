@@ -1,0 +1,58 @@
+table {
+	background-color: var(--primary-color);
+	border: 2px solid var(--primary-color);
+}
+
+table .header-row {
+	background-color: var(--secondary-color);
+	border-bottom: 2px solid white;
+}
+
+table .header-row th {
+	/* border-right: 2px solid white;
+	border-left: 2px solid white; */
+	padding: 15px 0px;
+	color: white;
+}
+
+table .header-row th.left-borderless {
+	border-left: none;
+}
+table .header-row th.right-borderless {
+	border-right: none;
+}
+
+table td {
+	padding: 5px 0px;
+	text-align: center;
+	color: White;
+}
+
+table td.actions {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+table td.actions img {
+	aspect-ratio: 1/1;
+	min-height: 35px;
+	height: 100%;
+	width: auto;
+}
+
+table a {
+	color: white;
+	transition: 0.5s;
+}
+
+table a:hover {
+	cursor: pointer;
+	transform: scale(105%);
+	color: var(--secondary-color);
+}
+
+table th.table-message {
+	color: white;
+	padding: 2%;
+}

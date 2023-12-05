@@ -1,5 +1,5 @@
     <section class="login-body">
-        <img/>
+        <div class="signup-stock"></div>
         <form method="post" action="<?=base_url()?>index.php/auth/auth_signup">
             <h2>COME JOIN US</h2>
             <p>And start travelling</p>
