@@ -394,6 +394,38 @@ aside {
 	}
 }
 
+/* Not Found Page */
+.not-found {
+	width: 100%;
+	height: calc(100vh - var(--header-height));
+	margin-top: var(--header-height);
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 25px;
+}
+
+.not-found > img {
+	aspect-ratio: 1/1;
+	width: 25%;
+	height: auto;
+}
+
+.not-found > h2 {
+	color: var(--primary-color);
+}
+
+.not-found > a {
+	background-color: var(--primary-color);
+	color: white;
+	border: 2px solid var(--secondary-color);
+	border-radius: 15px;
+	padding: 2% 3%;
+	text-decoration: none;
+}
+
 /* #region FormGaps */
 
 form div.form-gap.small {

@@ -36,9 +36,7 @@ class Planes extends CI_Controller {
         $data['customCSS'] = array('planes.css');
 
         $data['ogData'] = $this->plane_model->get($editId);
-        if (!$data['ogData']) return redirect(base_url().'index.php/planes');
-        //Temporary fallback solution
-        //TODO: Make a not found dislay
+        if (!$data['ogData']) return redirect(base_url().'index.php/bruh');        
 
         $this->load->view('prefab/header.php', $data);
         $this->load->view('planes/plane-update-form.php', $data);

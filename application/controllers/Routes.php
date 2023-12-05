@@ -57,9 +57,7 @@ class Routes extends CI_Controller {
 
         $data['planes'] = $this->plane_model->getAll();
         $data['ogData'] = $this->route_model->get($editId);
-        if (!$data['ogData']) return redirect(base_url().'index.php/routes');
-        //Temporary fallback solution
-        //TODO: Make a not found dislay
+        if (!$data['ogData']) return redirect(base_url().'index.php/bruh');
 
         $this->load->view('prefab/header.php', $data);
         $this->load->view('routes/routes-update-form.php', $data);

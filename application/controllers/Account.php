@@ -41,7 +41,9 @@ class Account extends CI_Controller {
         $data['title'] = 'Travelpedia - Update User Data';
         $data['customCSS'] = array('auth.css', 'account.css');
 
-        $data['userdata'] = $this->user_model->get($userId);
+        $userdata = $this->user_model->get($userId);
+        if ($userdata) $data['userdata'] = $userdata;
+        else return redirect(base_url().'index.php/bruh');
 
         $this->load->view('prefab/header.php', $data);
         $this->load->view('account/account-edit.php', $data);
